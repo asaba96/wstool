@@ -326,6 +326,20 @@ class ConfigElementYamlWrapper_Test(unittest.TestCase):
         self.assertEqual(uri, wrap.get_uri())
         self.assertEqual({scmtype: {'local-name': local_name, 'uri': uri}}, wrap.get_legacy_yaml())
 
+        # version is a number
+        local_name = 'common_rosdeps'
+        version = 1234
+        uri = 'https://kforge.ros.org/common/rosdepcore'
+        scmtype = 'hg'
+        struct = {scmtype: {'local-name': local_name, 'version': version, 'uri': uri}}
+        expected_struct = {scmtype: {'local-name': local_name, 'version': str(version), 'uri': uri}}
+        wrap = get_path_spec_from_yaml(struct)
+        self.assertEqual(scmtype, wrap.get_scmtype())
+        self.assertEqual(scmtype, wrap.get_legacy_type())
+        self.assertTrue(isinstance(wrap.get_version(), str))
+        self.assertEqual(uri, wrap.get_uri())
+        self.assertEqual(expected_struct, wrap.get_legacy_yaml())
+
         # no version
         local_name = 'common_rosdeps'
         version = None
