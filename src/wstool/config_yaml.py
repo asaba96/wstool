@@ -378,7 +378,10 @@ def get_path_spec_from_yaml(yaml_dict):
             elif key == "uri":
                 uri = value
             elif key == "version":
-                version = str(value)
+                if value is not None: 
+                    version = str(value)
+                else: 
+                    version = value
             else:
                 raise MultiProjectException(
                     "Unknown key %s in %s" % (key, yaml_dict))
