@@ -336,7 +336,7 @@ class ConfigElementYamlWrapper_Test(unittest.TestCase):
         wrap = get_path_spec_from_yaml(struct)
         self.assertEqual(scmtype, wrap.get_scmtype())
         self.assertEqual(scmtype, wrap.get_legacy_type())
-        self.assertTrue(isinstance(wrap.get_version(), str))
+        self.assertIsInstance(wrap.get_version(), str)
         self.assertEqual(uri, wrap.get_uri())
         self.assertEqual(expected_struct, wrap.get_legacy_yaml())
 
